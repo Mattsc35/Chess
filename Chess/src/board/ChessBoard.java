@@ -13,7 +13,7 @@ public class ChessBoard {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				BoardPosition position = new BoardPosition(row, col);
-				setPiece(position, new EmptyPiece(position));
+				setPiece(new EmptyPiece(position));
 			}
 		}
 	}
@@ -26,8 +26,8 @@ public class ChessBoard {
 		board[x][y] = piece;
 	}
 
-	public void setPiece(BoardPosition position, ChessPiece piece) {
-		setPiece(position.getX(), position.getY(), piece);
+	public void setPiece(ChessPiece piece) {
+		setPiece(piece.getPosition().getX(), piece.getPosition().getY(), piece);
 	}
 
 	

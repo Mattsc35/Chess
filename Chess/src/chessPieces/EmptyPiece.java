@@ -1,6 +1,7 @@
 package chessPieces;
 
 import concepts.BoardPosition;
+import concepts.ChessMove;
 
 public class EmptyPiece extends ChessPiece {
 
@@ -11,12 +12,12 @@ public class EmptyPiece extends ChessPiece {
 
 	@Override
 	public String getTextRender() {
-		return "[" + position.toString() + "]";
-		//return "[ ]";
+		//return "[" + position.toString() + "]";
+		return "[ ]";
 	}
 
 	@Override
-	public boolean canPotentiallyMakeMove() {
+	public boolean canPotentiallyMakeMove(ChessMove move) {
 		return false;
 	}
 
