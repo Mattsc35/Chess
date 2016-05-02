@@ -1,22 +1,31 @@
 package board;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 import chessPieces.*;
 import concepts.BoardPosition;
 import concepts.ChessMove;
+import concepts.MoveLog;
+import util.Logger;
+import util.MoveChecker;
 
 public class GameBoard {
 	private ChessBoard currentChessBoard;
-
+	private Deque<MoveLog> pastMoves;
+	
+	
 	public GameBoard() {
 		currentChessBoard = new ChessBoard();
 		initializeInitialChessboard();
+		pastMoves = new LinkedList<MoveLog>();
 	}
 
 	private void initializeInitialChessboard() {
 		BoardPosition currentPosition;
 		int whiteY = 1;
 		int blackY = 6;
-		
+
 		for (int x = 0; x < 8; x++) {
 			currentPosition = new BoardPosition(x, whiteY);
 			currentChessBoard.setPiece(new Pawn(currentPosition, true));
@@ -24,7 +33,7 @@ public class GameBoard {
 			currentPosition = new BoardPosition(x, blackY);
 			currentChessBoard.setPiece(new Pawn(currentPosition, false));
 		}
-		
+
 		whiteY = 0;
 		blackY = 7;
 
@@ -77,32 +86,53 @@ public class GameBoard {
 
 	}
 
-	public boolean makeMove(ChessMove moveToMake){
-		BoardPosition initialPosition = moveToMake.getInitialPosition();
-		BoardPosition finalPosition = moveToMake.getFinalPosition();
-		if(initialPosition.equals(finalPosition)){
-			return false;
+	public boolean makeMove(ChessMove moveToMake) {
+		boolean canMakeMove = MoveChecker.canMakeMove(currentChessBoard, moveToMake);
+		
+		if(canMakeMove){
+			BoardPosition initialPosition = moveToMake.getInitialPosition();
+			BoardPosition finalPosition = moveToMake.getFinalPosition();
+			ChessPiece initialPiece = currentChessBoard.getPiece(initialPosition);
+			ChessPiece finalPiece = currentChessBoard.getPiece(initialPosition);
+			PieceType initialPieceType = initialPiece.getType();
+			boolean isWhite = initialPiece.isWhite();
+			
+			pastMoves.push(new MoveLog(moveToMake, initialPiece, finalPiece));
+
+			ChessPiece newPiece = null;
+			if (initialPieceType == PieceType.PAWN) {
+				newPiece = new Pawn(finalPosition, isWhite);
+			}
+			else if (initialPieceType == PieceType.ROOK) {
+				newPiece = new Rook(finalPosition, isWhite);
+			}
+			else if (initialPieceType == PieceType.KNIGHT) {
+				newPiece = new Knight(finalPosition, isWhite);
+			}
+			else if (initialPieceType == PieceType.BISHOP) {
+				newPiece = new Bishop(finalPosition, isWhite);
+			}
+			else if (initialPieceType == PieceType.QUEEN) {
+				newPiece = new Queen(finalPosition, isWhite);
+			}
+			else if (initialPieceType == PieceType.KING) {
+				newPiece = new King(finalPosition, isWhite);
+			}
+			
+			currentChessBoard.setPiece(new EmptyPiece(initialPosition));
+			currentChessBoard.setPiece(newPiece);
 		}
 
-		ChessPiece initialPiece = currentChessBoard.getPiece(initialPosition);
-		ChessPiece finalPiece = currentChessBoard.getPiece(finalPosition);
-		
-		if(initialPiece.isEmpty()){
-			return false;
-		}
-		if(initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()){
-			return false;
-		}
-		
-		
-		return false; //TODO Change
+		return canMakeMove; // TODO Change
 	}
-	
-	
-	
-	
+
 	public void printBoard() {
 		currentChessBoard.printBoard();
 	}
 
+	public void undoMove(){
+		if(pastMoves.isEmpty()){
+			return;
+		}
+	}
 }

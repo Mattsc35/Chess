@@ -37,10 +37,12 @@ public class ChessBoard {
 
 	public void printBoard() {
 		for (int col = 7; col >= 0; col--) {
+			System.out.print(col);
 			for (int row = 0; row < 8; row++) {
 				System.out.print(getPiece(row, col).getTextRender());
 			}
 			System.out.println();
 		}
+		System.out.println("  0  1  2  3  4  5  6  7");
 	}
 }
