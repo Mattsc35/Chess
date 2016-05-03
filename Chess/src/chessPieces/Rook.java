@@ -6,6 +6,7 @@ import util.Logger;
 
 public class Rook extends ChessPiece {
 
+	static String loggerTag = "Rook";
 	public Rook(BoardPosition position, boolean white) {
 		super(position, white);
 		type = PieceType.ROOK;
@@ -18,8 +19,13 @@ public class Rook extends ChessPiece {
 		
 		int deltaX = Math.abs(initialPosition.getX() - finalPosition.getX());
 		int deltaY = Math.abs(initialPosition.getY() - finalPosition.getY());
-		Logger.debug("Rook canMakeMove ", String.valueOf((deltaX == 0 && deltaY > 0) || (deltaY == 0 && deltaX > 0)));
-		return ((deltaX == 0 && deltaY > 0) || (deltaY == 0 && deltaX > 0));
+
+		boolean returnValue = (deltaX == 0 && deltaY > 0) || (deltaY == 0 && deltaX > 0);
+		if(!returnValue){
+			Logger.debug(loggerTag, "Not a valid potential move");
+		}
+		
+		return returnValue;
 	}
 	
 	@Override

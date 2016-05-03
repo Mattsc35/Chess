@@ -23,6 +23,8 @@ public class GameBoard {
 	}
 
 	private void initializeInitialChessboard() {
+		Logger.log(loggerTag,"Initializing Chessboard");
+		
 		BoardPosition currentPosition;
 		int whiteY = 1;
 		int blackY = 6;
@@ -122,7 +124,10 @@ public class GameBoard {
 			
 			currentChessBoard.setPiece(new EmptyPiece(initialPosition));
 			currentChessBoard.setPiece(newPiece);
-			Logger.log(loggerTag, "Make Move: Move Made");
+			Logger.debug(loggerTag, "Make Move: Move Made");
+		}
+		else{
+			Logger.debug(loggerTag, "Make Move: Move not able to be made");
 		}
 
 		return canMakeMove; // TODO Change
@@ -148,3 +153,4 @@ public class GameBoard {
 		
 	}
 }
+ 

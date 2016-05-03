@@ -21,4 +21,16 @@ public class ChessMove {
 		String returnString = initialPosition.toString() + " to " + finalPosition.toString();
 		return returnString;
 	}
+	
+	public boolean equals(Object o) {
+		if ((o instanceof ChessMove) && 
+				(((ChessMove) o).getInitialPosition().equals(this.getInitialPosition()))&& 
+				(((ChessMove) o).getFinalPosition().equals(this.getFinalPosition()))) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

@@ -8,6 +8,7 @@ import concepts.ChessMove;
 
 public class MoveChecker {
 
+	private static String loggerTag = "MoveChecker";
 	public MoveChecker() {
 	}
 
@@ -16,20 +17,20 @@ public class MoveChecker {
 		BoardPosition initialPosition = moveToMake.getInitialPosition();
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		if (initialPosition.equals(finalPosition)) {
-			Logger.debug("Can make move", "Initial and final positions equal.");
+			Logger.debug(loggerTag, "Initial and final positions equal.");
 			return false;
 		}
 
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
 		if (initialPiece.isEmpty()) {
-			Logger.debug("Can make move", "Initial positions empty.");
+			Logger.debug(loggerTag, "Initial positions empty.");
 			return false;
 		}
 
 		// See if move would capture a piece of the same color
 		if (initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()) {
-			Logger.debug("Can make move", "Would capture equivilent piece.");
+			Logger.debug(loggerTag, "Would capture equivilent piece.");
 			return false;
 		}
 
@@ -42,7 +43,7 @@ public class MoveChecker {
 		}
 		else if (initialPieceType == PieceType.KNIGHT) {
 			return canKnightMakeMove(theBoard, moveToMake);
-		}
+ 		}
 		else if (initialPieceType == PieceType.BISHOP) {
 			return canBishopMakeMove(theBoard, moveToMake);
 		}
