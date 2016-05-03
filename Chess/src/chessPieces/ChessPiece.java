@@ -32,4 +32,17 @@ public abstract class ChessPiece {
 
 	public abstract boolean canPotentiallyMakeMove(ChessMove move);
 	public abstract String getTextRender();
+	
+	public boolean equals(Object o) {
+		if ((o instanceof ChessPiece) && 
+				((((ChessPiece) o).isWhite()) == this.isWhite()) && 
+				((((ChessPiece) o).getType()) == this.getType()) && 
+				(((ChessPiece) o).getPosition().equals(this.getPosition()))) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

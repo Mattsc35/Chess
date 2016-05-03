@@ -2,11 +2,11 @@ package util;
 
 public enum LoggerLevel {
 
-	DEBUG(0),
-	LOG(1),
-    WARNING(2),
-    ERROR(3),
-    FATAL(4);
+	LOG(0),
+	DEBUG(2),
+    WARNING(4),
+    ERROR(6),
+    FATAL(8);
 
     private Integer severity;
 

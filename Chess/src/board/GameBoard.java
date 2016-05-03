@@ -13,12 +13,13 @@ import util.MoveChecker;
 public class GameBoard {
 	private ChessBoard currentChessBoard;
 	private Deque<MoveLog> pastMoves;
-	
+	private String loggerTag;
 	
 	public GameBoard() {
 		currentChessBoard = new ChessBoard();
-		initializeInitialChessboard();
 		pastMoves = new LinkedList<MoveLog>();
+		loggerTag = "GameBoard";
+		initializeInitialChessboard();
 	}
 
 	private void initializeInitialChessboard() {
@@ -121,6 +122,7 @@ public class GameBoard {
 			
 			currentChessBoard.setPiece(new EmptyPiece(initialPosition));
 			currentChessBoard.setPiece(newPiece);
+			Logger.log(loggerTag, "Make Move: Move Made");
 		}
 
 		return canMakeMove; // TODO Change
@@ -132,7 +134,17 @@ public class GameBoard {
 
 	public void undoMove(){
 		if(pastMoves.isEmpty()){
+			Logger.debug(loggerTag, "Undo move. No moves to undo.");
 			return;
 		}
+		
+		MoveLog lastMoveLog = pastMoves.pop();
+		ChessMove lastMove = lastMoveLog.getMove();
+		ChessPiece movedPiece = lastMoveLog.getMovedPiece();
+		ChessPiece capturedPiece = lastMoveLog.getCapturedPiece();
+		
+		currentChessBoard.setPiece(movedPiece);
+		currentChessBoard.setPiece(capturedPiece);
+		
 	}
 }

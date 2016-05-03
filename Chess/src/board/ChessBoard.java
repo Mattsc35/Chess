@@ -30,7 +30,6 @@ public class ChessBoard {
 		setPiece(piece.getPosition().getX(), piece.getPosition().getY(), piece);
 	}
 
-	
 	public ChessPiece getPiece(BoardPosition position) {
 		return getPiece(position.getX(), position.getY());
 	}
@@ -45,4 +44,21 @@ public class ChessBoard {
 		}
 		System.out.println("  0  1  2  3  4  5  6  7");
 	}
+
+	public boolean equals(Object o) {
+		if (!(o instanceof ChessBoard)){
+			return false;
+		}
+		
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if(!getPiece(row,col).equals(((ChessBoard) o).getPiece(row, col))){
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
 }
