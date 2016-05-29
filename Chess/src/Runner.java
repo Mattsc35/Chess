@@ -5,7 +5,7 @@ import players.HumanPlayer;
 import util.Logger;
 import util.LoggerLevel;
 
-public class main {
+public class Runner {
 
 	
 	public static void testChessBoard(){
@@ -36,9 +36,14 @@ public class main {
 		}
 		
 	}
+	
+	public static void GUIGetPotentialMovesTest(){
+		MainController mc = new MainController();
+		mc.start();
+	}
 
 	public static void main(String[] args) {
-		scratchSpace2();
+		GUIGetPotentialMovesTest();
 	}
 
 }

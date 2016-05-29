@@ -1,6 +1,6 @@
 package util;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.LinkedList;
 import board.ChessBoard;
 import chessPieces.ChessPiece;
@@ -16,11 +16,11 @@ public class PotentialMoveFinder {
 
 	}
 
-	public static ArrayList<ChessMove> getPotentialMoves(ChessBoard theBoard, BoardPosition position) {
+	public static LinkedList<ChessMove> getPotentialMoves(ChessBoard theBoard, BoardPosition position) {
 		ChessPiece currentPiece = theBoard.getPiece(position);
 
 		if (currentPiece == null || currentPiece.isEmpty()) {
-			return new ArrayList<ChessMove>();
+			return new LinkedList<ChessMove>();
 		}
 
 		if (currentPiece.getType() == PieceType.PAWN) {
@@ -43,13 +43,13 @@ public class PotentialMoveFinder {
 		}
 		else {
 			Logger.error(tag, "PotentialMoveFinder, Invalid board piece.");
-			return new ArrayList<ChessMove>();
+			return new LinkedList<ChessMove>();
 		}
 	}
 
-	private static ArrayList<ChessMove> getPotentialPawnMoves(ChessBoard theBoard, BoardPosition position) {
+	private static LinkedList<ChessMove> getPotentialPawnMoves(ChessBoard theBoard, BoardPosition position) {
 		// TODO check
-		ArrayList<ChessMove> returnList = new ArrayList<ChessMove>();
+		LinkedList<ChessMove> returnList = new LinkedList<ChessMove>();
 		ChessPiece currentPiece = theBoard.getPiece(position);
 		int currentY = position.getY();
 		int currentX = position.getX();
@@ -94,9 +94,9 @@ public class PotentialMoveFinder {
 		return returnList;
 	}
 
-	private static ArrayList<ChessMove> getPotentialRookMoves(ChessBoard theBoard, BoardPosition position) {
+	private static LinkedList<ChessMove> getPotentialRookMoves(ChessBoard theBoard, BoardPosition position) {
 		// TODO check
-		ArrayList<ChessMove> returnList = new ArrayList<ChessMove>();
+		LinkedList<ChessMove> returnList = new LinkedList<ChessMove>();
 		boolean white = theBoard.getPiece(position).isWhite();
 
 		// Left Spaces
@@ -164,9 +164,9 @@ public class PotentialMoveFinder {
 		return returnList;
 	}
 
-	private static ArrayList<ChessMove> getPotentialKnightMoves(ChessBoard theBoard, BoardPosition position) {
+	private static LinkedList<ChessMove> getPotentialKnightMoves(ChessBoard theBoard, BoardPosition position) {
 		// TODO check
-		ArrayList<ChessMove> returnList = new ArrayList<ChessMove>();
+		LinkedList<ChessMove> returnList = new LinkedList<ChessMove>();
 
 		boolean white = theBoard.getPiece(position).isWhite();
 		int origX = position.getX();
@@ -195,9 +195,9 @@ public class PotentialMoveFinder {
 		return returnList;
 	}
 
-	private static ArrayList<ChessMove> getPotentialBishopMoves(ChessBoard theBoard, BoardPosition position) {
+	private static LinkedList<ChessMove> getPotentialBishopMoves(ChessBoard theBoard, BoardPosition position) {
 		// TODO check
-		ArrayList<ChessMove> returnList = new ArrayList<ChessMove>();
+		LinkedList<ChessMove> returnList = new LinkedList<ChessMove>();
 
 		boolean white = theBoard.getPiece(position).isWhite();
 		int origX = position.getX();
@@ -295,17 +295,17 @@ public class PotentialMoveFinder {
 		return returnList;
 	}
 
-	private static ArrayList<ChessMove> getPotentialQueenMoves(ChessBoard theBoard, BoardPosition position) {
+	private static LinkedList<ChessMove> getPotentialQueenMoves(ChessBoard theBoard, BoardPosition position) {
 		// TODO check
-		ArrayList<ChessMove> returnList = new ArrayList<ChessMove>();
+		LinkedList<ChessMove> returnList = new LinkedList<ChessMove>();
 		returnList = getPotentialRookMoves(theBoard, position);
 		returnList.addAll(getPotentialBishopMoves(theBoard, position));
 		return returnList;
 	}
 
-	private static ArrayList<ChessMove> getPotentialKingMoves(ChessBoard theBoard, BoardPosition position) {
+	private static LinkedList<ChessMove> getPotentialKingMoves(ChessBoard theBoard, BoardPosition position) {
 		// TODO check
-		ArrayList<ChessMove> returnList = new ArrayList<ChessMove>();
+		LinkedList<ChessMove> returnList = new LinkedList<ChessMove>();
 		boolean white = theBoard.getPiece(position).isWhite();
 		int origX = position.getX();
 		int origY = position.getY();

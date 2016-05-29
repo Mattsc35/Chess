@@ -27,6 +27,10 @@ public class GameBoard {
 		pastMoves = new LinkedList<MoveLog>();
 		loggerTag = "GameBoard";
 	}
+	
+	public ChessPiece getPiece(BoardPosition position){
+		return currentChessBoard.getPiece(position);
+	}
 
 	private void initializeInitialChessboard() {
 		Logger.log(loggerTag, "Initializing Chessboard");
