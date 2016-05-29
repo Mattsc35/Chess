@@ -14,21 +14,28 @@ public class GameBoard {
 	private ChessBoard currentChessBoard;
 	private Deque<MoveLog> pastMoves;
 	private String loggerTag;
-	
+
 	public GameBoard() {
 		currentChessBoard = new ChessBoard();
 		pastMoves = new LinkedList<MoveLog>();
 		loggerTag = "GameBoard";
 		initializeInitialChessboard();
 	}
+	
+	public GameBoard(ChessBoard initialBoard) {
+		currentChessBoard = initialBoard;
+		pastMoves = new LinkedList<MoveLog>();
+		loggerTag = "GameBoard";
+	}
 
 	private void initializeInitialChessboard() {
-		Logger.log(loggerTag,"Initializing Chessboard");
-		
+		Logger.log(loggerTag, "Initializing Chessboard");
+
 		BoardPosition currentPosition;
+
+		// Pawns
 		int whiteY = 1;
 		int blackY = 6;
-
 		for (int x = 0; x < 8; x++) {
 			currentPosition = new BoardPosition(x, whiteY);
 			currentChessBoard.setPiece(new Pawn(currentPosition, true));
@@ -86,20 +93,19 @@ public class GameBoard {
 
 		currentPosition = new BoardPosition(4, blackY);
 		currentChessBoard.setPiece(new King(currentPosition, false));
-
 	}
 
 	public boolean makeMove(ChessMove moveToMake) {
 		boolean canMakeMove = MoveChecker.canMakeMove(currentChessBoard, moveToMake);
-		
-		if(canMakeMove){
+
+		if (canMakeMove) {
 			BoardPosition initialPosition = moveToMake.getInitialPosition();
 			BoardPosition finalPosition = moveToMake.getFinalPosition();
 			ChessPiece initialPiece = currentChessBoard.getPiece(initialPosition);
 			ChessPiece finalPiece = currentChessBoard.getPiece(initialPosition);
 			PieceType initialPieceType = initialPiece.getType();
 			boolean isWhite = initialPiece.isWhite();
-			
+
 			pastMoves.push(new MoveLog(moveToMake, initialPiece, finalPiece));
 
 			ChessPiece newPiece = null;
@@ -121,12 +127,12 @@ public class GameBoard {
 			else if (initialPieceType == PieceType.KING) {
 				newPiece = new King(finalPosition, isWhite);
 			}
-			
+
 			currentChessBoard.setPiece(new EmptyPiece(initialPosition));
 			currentChessBoard.setPiece(newPiece);
 			Logger.debug(loggerTag, "Make Move: Move Made");
 		}
-		else{
+		else {
 			Logger.debug(loggerTag, "Make Move: Move not able to be made");
 		}
 
@@ -137,20 +143,23 @@ public class GameBoard {
 		currentChessBoard.printBoard();
 	}
 
-	public void undoMove(){
-		if(pastMoves.isEmpty()){
-			Logger.debug(loggerTag, "Undo move. No moves to undo.");
+	public void undoMove() {
+		if (pastMoves.isEmpty()) {
+			Logger.debug(loggerTag, "Undo move: No moves to undo.");
 			return;
 		}
-		
+
 		MoveLog lastMoveLog = pastMoves.pop();
 		ChessMove lastMove = lastMoveLog.getMove();
 		ChessPiece movedPiece = lastMoveLog.getMovedPiece();
 		ChessPiece capturedPiece = lastMoveLog.getCapturedPiece();
-		
+
 		currentChessBoard.setPiece(movedPiece);
 		currentChessBoard.setPiece(capturedPiece);
-		
+
+	}
+
+	public ChessBoard getChessBoard(){
+		return currentChessBoard;
 	}
 }
- 

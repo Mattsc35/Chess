@@ -8,11 +8,10 @@ import concepts.ChessMove;
 
 public class HumanPlayer extends Player {
 
-
-	
 	@Override
 	public ChessMove getNextMove(GameBoard currentBoard) {
-		Scanner scanner = new Scanner(System.in);
+		//TODO static class wrapper for input
+		Scanner scanner = new Scanner(System.in); 
 		
 		System.out.println("enter initial x: ");
 		int initialX = scanner.nextInt();

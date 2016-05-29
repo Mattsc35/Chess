@@ -9,11 +9,12 @@ import concepts.ChessMove;
 public class MoveChecker {
 
 	private static String loggerTag = "MoveChecker";
+
 	public MoveChecker() {
 	}
 
 	public static boolean canMakeMove(ChessBoard theBoard, ChessMove moveToMake) {
-		
+
 		BoardPosition initialPosition = moveToMake.getInitialPosition();
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		if (initialPosition.equals(finalPosition)) {
@@ -24,7 +25,7 @@ public class MoveChecker {
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
 		if (initialPiece.isEmpty()) {
-			Logger.debug(loggerTag, "Initial positions empty.");
+			Logger.debug(loggerTag, "Initial position empty.");
 			return false;
 		}
 
@@ -43,7 +44,7 @@ public class MoveChecker {
 		}
 		else if (initialPieceType == PieceType.KNIGHT) {
 			return canKnightMakeMove(theBoard, moveToMake);
- 		}
+		}
 		else if (initialPieceType == PieceType.BISHOP) {
 			return canBishopMakeMove(theBoard, moveToMake);
 		}
@@ -53,8 +54,9 @@ public class MoveChecker {
 		else if (initialPieceType == PieceType.KING) {
 			return canKingMakeMove(theBoard, moveToMake);
 		}
-
-		return false;
+		else {
+			return false;
+		}
 	}
 
 	public static boolean canPawnMakeMove(ChessBoard theBoard, ChessMove moveToMake) {
@@ -62,9 +64,11 @@ public class MoveChecker {
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
+		
 		if (initialPiece.getType() != PieceType.PAWN || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
+		
 		int deltaX = Math.abs(initialPosition.getX() - finalPosition.getX());
 		int deltaY = Math.abs(initialPosition.getY() - finalPosition.getY());
 		final int initialX = initialPosition.getX();
@@ -72,6 +76,7 @@ public class MoveChecker {
 		final int finalY = finalPosition.getY();
 		boolean up = (initialY - finalY) < 0;
 		int yIncrement = (up) ? 1 : -1;
+		
 		if (deltaX == 0) {
 			ChessPiece pieceOneAhead = theBoard.getPiece(new BoardPosition(initialX, initialY + yIncrement));
 			if (deltaY == 1) {
@@ -94,10 +99,10 @@ public class MoveChecker {
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
-		if (initialPiece.getType() != PieceType.KING|| !initialPiece.canPotentiallyMakeMove(moveToMake)) {
+		if (initialPiece.getType() != PieceType.KING || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
-		
+
 		if (initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()) {
 			return false;
 		}
@@ -114,7 +119,7 @@ public class MoveChecker {
 		if (initialPiece.getType() != PieceType.KNIGHT || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
-		
+
 		if (initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()) {
 			return false;
 		}
@@ -124,12 +129,13 @@ public class MoveChecker {
 	}
 
 	public static boolean canQueenMakeMove(ChessBoard theBoard, ChessMove moveToMake) {
+		// TODO will not work by calling bishopmakemove and rook make move
 		final int initialX = moveToMake.getInitialPosition().getX();
 		final int initialY = moveToMake.getInitialPosition().getY();
 		final int finalX = moveToMake.getFinalPosition().getX();
 		final int finalY = moveToMake.getFinalPosition().getY();
-		boolean horizontal = (initialX - finalX) != 0; // TODO check
-		boolean vertical = (initialY - finalY) != 0;
+		boolean horizontal = (initialX != finalX); // TODO check
+		boolean vertical = (initialY != finalY);
 
 		if (horizontal && vertical) {
 			return canBishopMakeMove(theBoard, moveToMake);
@@ -192,7 +198,7 @@ public class MoveChecker {
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
-		if (initialPiece.getType() != PieceType.ROOK|| !initialPiece.canPotentiallyMakeMove(moveToMake)) {
+		if (initialPiece.getType() != PieceType.ROOK || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
 		if (initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()) {
