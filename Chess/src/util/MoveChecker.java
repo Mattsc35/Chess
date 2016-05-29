@@ -64,11 +64,11 @@ public class MoveChecker {
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
-		
+
 		if (initialPiece.getType() != PieceType.PAWN || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
-		
+
 		int deltaX = Math.abs(initialPosition.getX() - finalPosition.getX());
 		int deltaY = Math.abs(initialPosition.getY() - finalPosition.getY());
 		final int initialX = initialPosition.getX();
@@ -76,7 +76,7 @@ public class MoveChecker {
 		final int finalY = finalPosition.getY();
 		boolean up = (initialY - finalY) < 0;
 		int yIncrement = (up) ? 1 : -1;
-		
+
 		if (deltaX == 0) {
 			ChessPiece pieceOneAhead = theBoard.getPiece(new BoardPosition(initialX, initialY + yIncrement));
 			if (deltaY == 1) {
@@ -212,22 +212,22 @@ public class MoveChecker {
 		boolean horizontal = (initialX - finalX) != 0;
 
 		if (horizontal) {
-			boolean right = (initialX - finalX) < 0; // TODO check
+			boolean right = (initialX < finalX); // TODO check
 			int delta = (right) ? 1 : -1;
 
-			for (int i = 0; initialX + i != finalX; i += delta) {
+			for (int i = delta; initialX + i != finalX; i += delta) {
 				if (initialX + i < 0 || initialX + i > 7) {
 					Logger.error("CanRookMove", "Invalid board positions");
 					break;
 				}
-				BoardPosition currentPosition = new BoardPosition(i + initialX, initialY);
+				BoardPosition currentPosition = new BoardPosition(initialX + i, initialY);
 				if (!theBoard.getPiece(currentPosition).isEmpty()) {
 					return false;
 				}
 			}
 		}
 		else {
-			boolean up = (initialY - finalY) < 0; // TODO check
+			boolean up = (initialY < finalY); // TODO check
 			int delta = (up) ? 1 : -1;
 
 			for (int i = delta; initialY + i != finalY; i += delta) {

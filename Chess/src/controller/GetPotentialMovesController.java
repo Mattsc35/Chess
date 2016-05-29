@@ -83,7 +83,6 @@ public class GetPotentialMovesController extends Controller {
 		// System.out.println(positionClicked.toString());
 		ChessPiece pieceClicked = theBoard.getPiece(positionClicked);
 		if (!displaying) {
-			System.out.println("a");
 			if (pieceClicked.isEmpty()) {
 				return;
 			}
@@ -93,7 +92,6 @@ public class GetPotentialMovesController extends Controller {
 			}
 		}
 		else {
-			System.out.println("b");
 			finalPosition = positionClicked;
 			theBoard.makeMove(new ChessMove(originalPosition, finalPosition));
 			displaying = false;
