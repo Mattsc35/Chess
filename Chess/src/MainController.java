@@ -27,8 +27,8 @@ public class MainController {
 	private void initialize() {
 		frame = new JFrame("Chess!");
 		view = new ChessView();
-		currentScreen = new GetPotentialMovesController();
-		
+		switchStates(new GetPotentialMovesController());
+
 		initializePreferences();
 
 		view.setPreferredSize(new Dimension(Preferences.getWindowWidth(), Preferences.getWindowHeight()));
@@ -56,6 +56,20 @@ public class MainController {
 		frame.setVisible(true);
 	}
 
+	public void switchStates(Controller newScreen) {
+		if (view.getMouseListeners().length > 0) {
+			view.removeMouseListener(currentScreen);
+		}
+		if (view.getMouseMotionListeners().length > 0) {
+			view.removeMouseMotionListener(currentScreen);
+		}
+
+		currentScreen = newScreen;
+
+		view.addMouseListener(currentScreen);
+		view.addMouseMotionListener(currentScreen);
+	}
+
 	public void start() {
 		running = true;
 		run();
@@ -79,7 +93,6 @@ public class MainController {
 	public void onTick(long deltaNs) {
 
 	}
-
 
 	/*
 	 * public void switchStates(GameState newState) { if

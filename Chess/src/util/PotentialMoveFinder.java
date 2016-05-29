@@ -3,6 +3,7 @@ package util;
 import java.util.LinkedList;
 import java.util.LinkedList;
 import board.ChessBoard;
+import board.GameBoard;
 import chessPieces.ChessPiece;
 import chessPieces.Pawn;
 import chessPieces.PieceType;
@@ -14,6 +15,9 @@ public class PotentialMoveFinder {
 
 	public PotentialMoveFinder() {
 
+	}
+	public static LinkedList<ChessMove> getPotentialMoves(GameBoard theBoard, BoardPosition position) {
+		return getPotentialMoves(theBoard.getChessBoard(), position);
 	}
 
 	public static LinkedList<ChessMove> getPotentialMoves(ChessBoard theBoard, BoardPosition position) {

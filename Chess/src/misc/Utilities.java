@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
+import concepts.BoardPosition;
+
 public class Utilities {
 
 	public static final long NANOS_PER_SECOND = 1000000000;
@@ -23,5 +25,11 @@ public class Utilities {
 	public static double getRandInRange(double min, double max) {
 		return min + (rand.nextDouble() * (max - min));
 	}
-	
+
+	public static BoardPosition clickToPosition(MouseEvent e) {
+		double x = xToPercentage(e.getX());
+		double y = yToPercentage(e.getY());
+		return new BoardPosition((int) (x / 12.5), 7 - ((int) (y / 12.5)));
+	}
+
 }
