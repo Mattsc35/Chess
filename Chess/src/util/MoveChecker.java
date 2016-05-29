@@ -150,7 +150,7 @@ public class MoveChecker {
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
-		if (initialPiece.getType() != PieceType.BISHOP || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
+		if (!initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
 		if (initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()) {
@@ -198,7 +198,7 @@ public class MoveChecker {
 		BoardPosition finalPosition = moveToMake.getFinalPosition();
 		ChessPiece initialPiece = theBoard.getPiece(initialPosition);
 		ChessPiece finalPiece = theBoard.getPiece(finalPosition);
-		if (initialPiece.getType() != PieceType.ROOK || !initialPiece.canPotentiallyMakeMove(moveToMake)) {
+		if (!initialPiece.canPotentiallyMakeMove(moveToMake)) {
 			return false;
 		}
 		if (initialPiece.isWhite() == finalPiece.isWhite() && !finalPiece.isEmpty()) {
