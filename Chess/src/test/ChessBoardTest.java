@@ -135,10 +135,6 @@ public class ChessBoardTest {
 		currentPosition = new BoardPosition(2,4);
 		controlBoard.setPiece(new King(currentPosition, true));
 		
-		testBoard.printBoard();
-		System.out.println("==========");
-		controlBoard.printBoard();
-		
 		assertTrue(controlBoard.equals(testBoard));
 	}
 

@@ -75,11 +75,10 @@ public class ChessBoard {
 			Logger.error(tag, "INVALID BOARD. TOO MANY ROWS");
 			return;
 		}
-		for (String line : newBoard) {
-			System.out.println(line);
+		for (int i = 0; i < newBoard.length; i++) {
+			String line = newBoard[i];
 			line = line.replace("[", "");
 			line = line.replace("]", "");
-			System.out.println(line);
 			if (line.length() != 8) {
 				Logger.error(tag, "INVALID BOARD. TOO MANY COLUMNS");
 				return;
@@ -89,8 +88,8 @@ public class ChessBoard {
 		for (int row = 0; row < newBoard.length; row++) {
 			for (int col = 0; col < newBoard.length; col++) {
 				ChessPiece newPiece = null;
-				char currentChar = newBoard[7-row].charAt(col);
-				BoardPosition currentPosition = new BoardPosition(row, col);
+				char currentChar = newBoard[row].charAt(col); 
+				BoardPosition currentPosition = new BoardPosition(col, 7-row);
 
 				if (currentChar == ' ' || currentChar == 'x' || currentChar == 'X') {
 					newPiece = new EmptyPiece(currentPosition);

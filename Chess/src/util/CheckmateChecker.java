@@ -1,8 +1,8 @@
 package util;
 
 import java.util.LinkedList;
-
 import board.ChessBoard;
+import board.GameBoard;
 import chessPieces.ChessPiece;
 import chessPieces.PieceType;
 import concepts.BoardPosition;
@@ -34,7 +34,7 @@ public class CheckmateChecker {
 	private static boolean isInCheck(ChessBoard theBoard, boolean white) {
 		// TODO check
 		LinkedList<ChessMove> enemyMoves = new LinkedList<ChessMove>();
-		BoardPosition kingPosition = findKing(theBoard, white); 
+		BoardPosition kingPosition = findKing(theBoard, white);
 
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
@@ -63,7 +63,31 @@ public class CheckmateChecker {
 	}
 
 	private static boolean isInCheckmate(ChessBoard theBoard, boolean white) {
-		//TODO Write
+		// TODO check
+		if (!isInCheck(theBoard, white)) {
+			return false;
+		}
+
+		LinkedList<ChessMove> potentialMoves = new LinkedList<ChessMove>();
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				BoardPosition currentPos = new BoardPosition(row, col);
+				ChessPiece currentPiece = theBoard.getPiece(currentPos);
+				if (!currentPiece.isEmpty() && currentPiece.isWhite() == white) {
+					potentialMoves.addAll(PotentialMoveFinder.getPotentialMoves(theBoard, currentPos));
+				}
+			}
+		}
+
+		GameBoard scratchBoard = new GameBoard(theBoard);
+		for (ChessMove move : potentialMoves) {
+			scratchBoard.makeMove(move);
+			if (!isInCheck(scratchBoard.getChessBoard(), white)) {
+				return false;
+			}
+			scratchBoard.undoMove();
+		}
+
 		return true;
 	}
 

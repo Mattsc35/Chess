@@ -63,7 +63,7 @@ public class ChessView extends Canvas {
 				g.scale(scaleX, scaleY);
 			}
 
-			//Draw image
+			// Draw image
 			g.drawImage(sprite, 0, 0, (int) (windowWidth * (widthPercentage / 100)),
 					(int) (windowHeight * (heightPercentage / 100)), null, null);
 

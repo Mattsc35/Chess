@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 import view.RenderInstructions;
 
-public abstract class Controller implements MouseListener, MouseMotionListener {
+public abstract class Controller implements MouseListener, MouseMotionListener{
 
 	protected boolean switchScreen = false;
 

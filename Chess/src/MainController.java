@@ -40,7 +40,7 @@ public class MainController {
 
 	private void initializePreferences() {
 		Preferences.initalize();
-		Preferences.setFullscreen(false);
+		Preferences.setFullscreen(true);
 	}
 
 	public void drawScreen() {

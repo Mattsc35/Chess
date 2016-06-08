@@ -140,7 +140,7 @@ public class GameBoard {
 			Logger.debug(loggerTag, "Make Move: Move not able to be made");
 		}
 
-		return canMakeMove; // TODO Change
+		return canMakeMove;
 	}
 
 	public void printBoard() {
@@ -160,7 +160,6 @@ public class GameBoard {
 
 		currentChessBoard.setPiece(movedPiece);
 		currentChessBoard.setPiece(capturedPiece);
-
 	}
 
 	public ChessBoard getChessBoard(){

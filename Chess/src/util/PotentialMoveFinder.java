@@ -16,6 +16,7 @@ public class PotentialMoveFinder {
 	public PotentialMoveFinder() {
 
 	}
+
 	public static LinkedList<ChessMove> getPotentialMoves(GameBoard theBoard, BoardPosition position) {
 		return getPotentialMoves(theBoard.getChessBoard(), position);
 	}

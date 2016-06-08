@@ -15,10 +15,8 @@ import view.RenderInstructions;
 import view.RenderInstructionsMaker;
 
 public class GetPotentialMovesController extends Controller {
-
 	private GameBoard theBoard;
 	private String tag = "GetPotentialMovesController";
-
 	private boolean displaying;
 	private BoardPosition originalPosition;
 	private BoardPosition finalPosition;
@@ -38,17 +36,18 @@ public class GetPotentialMovesController extends Controller {
 		RenderInstructions background = new RenderInstructions(0, 0, "res/chessboard.png", 100, 100);
 		renderBatch.add(background);
 
-		if(displaying){
-			RenderInstructions currentPieceHighlight = RenderInstructionsMaker.renderCurrentPieceHighlight(originalPosition);
+		if (displaying) {
+			RenderInstructions currentPieceHighlight = RenderInstructionsMaker
+					.renderCurrentPieceHighlight(originalPosition);
 			renderBatch.add(currentPieceHighlight);
 			LinkedList<ChessMove> potentialMoves = PotentialMoveFinder.getPotentialMoves(theBoard, originalPosition);
-			LinkedList<RenderInstructions> potentialMovesRender = RenderInstructionsMaker.renderPotentialPieces(potentialMoves);
+			LinkedList<RenderInstructions> potentialMovesRender = RenderInstructionsMaker
+					.renderPotentialPieces(potentialMoves);
 			renderBatch.addAll(potentialMovesRender);
 		}
 
 		LinkedList<RenderInstructions> pieces = RenderInstructionsMaker.renderPieces(theBoard.getChessBoard());
 		renderBatch.addAll(pieces);
-		
 
 		return renderBatch;
 	}
@@ -56,7 +55,6 @@ public class GetPotentialMovesController extends Controller {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -68,13 +66,11 @@ public class GetPotentialMovesController extends Controller {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -103,25 +99,21 @@ public class GetPotentialMovesController extends Controller {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -129,5 +121,4 @@ public class GetPotentialMovesController extends Controller {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
